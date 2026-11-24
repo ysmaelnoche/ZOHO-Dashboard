@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Shift Huddle | TVS Philippines</title>
+  <link rel="stylesheet" href="./dashboard.css">
+  <link rel="stylesheet" href="./concepts.css">
+  <script defer src="./data.js"></script>
+  <script defer src="./dashboard.js"></script>
+</head>
+<body class="shift-huddle">
+<a class="skip" href="#main">Skip to report</a>
+<header class="mast"><a class="gallery-link" href="./index.html" aria-label="Back to design gallery"><span class="mark">TVS<span>PH</span></span><span class="brand-copy">Philippines CRM<small>Design gallery</small></span></a><span class="demo-label">DEMO DATA</span>
+</header>
+<main id="main" class="layout">
+<header class="intro"><div class="headline"><h1>Philippines shift huddle</h1><p id="subtitle"></p></div><nav class="view-switch" aria-label="Dashboard view"><button type="button" data-view="ops" aria-pressed="true">Daily Operations</button><button type="button" data-view="exec" aria-pressed="false">Executive Overview</button></nav>
+</header>
+<section id="attention"></section><div class="workbar"><form id="filters" class="filters" aria-label="Report filters"><label>Reporting period<select id="period"></select></label><label>Lead source<select id="source"></select></label><label>Product line<select id="product"></select></label><label id="territory-filter" hidden>Territory<select id="territory"></select></label><button class="quiet" type="reset">Reset</button></form></div><div class="huddle">
+<section id="queue"></section>
+<aside>
+<section id="metrics" aria-label="Key metrics"></section>
+<section id="trend"></section>
+</aside></div><div class="paired">
+<section id="analysis"></section>
+<section id="mix"></section></div>
+</main>
+<footer class="footnote">Philippines only · Manila time · No live CRM connection</footer>
+<p id="report-status" class="sr-only" role="status"></p>
+<p id="load-state" class="load-state" role="status">Loading synthetic report…</p>
+<noscript><p>Enable JavaScript to open this dashboard prototype.</p></noscript>
+<dialog id="detail" aria-labelledby="detail-title"><div class="dialog-top"><h2 id="detail-title"></h2><form method="dialog"><button>Close</button></form></div><div id="detail-body"></div></dialog>
+</body>
+</html>

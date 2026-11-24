@@ -1,0 +1,163 @@
+/* Intake Exchange — source proportions and flow have the largest visual footprint. */
+.intake-exchange {
+  --bg: #eef1ea; --paper: #fbfcf8; --ink: #1b3029; --muted: #4b6155;
+  --line: #bac9bd; --wash: #e5ece2; --accent: #22604e; --accent2: #7d8864;
+  --display: "Segoe UI Variable", "Segoe UI", sans-serif; --radius: 2px; --gap: 14px;
+}
+.intake-exchange .mast { border-top: 4px solid var(--accent); }
+.intake-exchange .exchange { grid-template-columns: minmax(225px, .72fr) minmax(0, 2fr); }
+.intake-exchange #mix { background: #e5ece0; border-top: 3px solid var(--accent); }
+.intake-exchange #mix h2 { font-size: 26px; }
+.intake-exchange #mix button { padding-block: 11px; }
+.intake-exchange #mix h3 { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.intake-exchange .mix-track { height: 5px; background: #cedbd0; }
+.intake-exchange #metrics { border-color: var(--line); }
+.intake-exchange .metric-grid { grid-template-columns: 1.3fr 1.1fr 1fr 1fr; }
+.intake-exchange .metric:first-child { background: #dce8db; }
+.intake-exchange .column-pair { height: 138px; }
+.intake-exchange .column-pair span { width: min(45%, 30px); }
+.intake-exchange .columns { border-inline-start: 1px solid var(--line); padding-inline-start: 8px; }
+
+/* Handoff Board — compact dispatch navigation and cards arranged by responsible desk. */
+.handoff-board {
+  --bg: #f1f3f6; --paper: #fff; --ink: #172537; --muted: #4b5e73; --line: #cbd4df;
+  --wash: #e9edf4; --accent: #244a81; --accent2: #617a9b; --radius: 4px; --gap: 12px;
+  --display: "Bahnschrift", "Segoe UI", sans-serif;
+}
+.handoff-board .station { display: grid; grid-template-columns: 216px minmax(0,1fr); align-items: start; }
+.handoff-board .sidebar { --accent: #abc7f1; position: sticky; top: 0; min-height: 100vh; padding: 24px 14px; background: #192a40; color: #f2f6fb; display: grid; align-content: start; gap: 30px; }
+.handoff-board .sidebar small, .handoff-board .sidebar .demo-label { color: #c1cede; }
+.handoff-board .sidebar .demo-label { margin-right: auto; border-color: #5b7189; }
+.handoff-board .sidebar .mark { background: #f2f6fb; color: #192a40; }
+.handoff-board .view-switch { display: grid; width: 100%; }
+.handoff-board .view-switch button, .handoff-board .anchors a { text-align: left; color: #d6e1ef; }
+.handoff-board .view-switch [aria-pressed="true"] { color: #fff; background: #344f70; border-color: #526e90; }
+.handoff-board .anchors { display: grid; gap: 10px; padding-left: 10px; }
+.handoff-board .anchors a { font-size: 12px; }
+.handoff-board .layout { width: 100%; padding-inline: clamp(12px, 2vw, 28px); }
+.handoff-board h1 { font-size: clamp(27px, 3vw, 43px); }
+.handoff-board .metric { min-height: 93px; }
+.handoff-board #queue { padding: 13px; }
+.lanes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; align-items: start; }
+.lanes > section { background: var(--wash); min-width: 0; padding: 8px; border-top: 2px solid #8093aa; }
+.lane-head { padding: 2px 2px 8px; }
+.lane-head h3 { font-size: 14px; margin: 0; }
+.lane-head > span { font-size: 11px; color: var(--muted); }
+.lanes ul { display: grid; gap: 7px; }
+.lanes li { display: grid; min-width: 0; gap: 5px; border: 1px solid var(--line); padding: 9px; background: var(--paper); }
+.lanes li > strong { font-size: 13px; }
+.lane-card-top { display: flex; align-items: center; justify-content: space-between; gap: 4px; flex-wrap: wrap; }
+.lane-record { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 2px 7px; font-size: 11px; }
+.lane-record dt { color: var(--muted); }
+.lanes li p, .lanes li small { color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+.lanes li .lane-action { color: var(--ink); border-top: 1px solid var(--line); padding-top: 4px; }
+.lanes li .review { justify-self: end; }
+.lane-pager { flex-wrap: wrap; margin-top: 7px; }
+.lane-pager button { min-height: 30px; }
+.handoff-board #critical-only[aria-pressed="true"] { background: var(--critical-bg); border-color: var(--critical); color: var(--critical); font-weight: 700; }
+
+/* Cohort Ledger — a ruled statement with subtotals and an exception register. */
+.cohort-ledger {
+  --bg: #f8f5ef; --paper: #fffcf6; --ink: #2a2925; --muted: #5c5548; --line: #cec3af;
+  --wash: #eee7da; --accent: #69472d; --accent2: #8e7355; --radius: 0; --gap: 19px; --display: Georgia, serif;
+}
+.cohort-ledger .mast { min-height: 54px; border-top: 3px solid var(--ink); background: var(--bg); }
+.cohort-ledger h1 { font-weight: 500; }
+.cohort-ledger h2 { font-weight: 600; font-size: 23px; }
+.cohort-ledger .ledger-controls { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: end; gap: 9px 14px; border-block: 1px solid var(--line); padding-block: 8px; }
+.cohort-ledger .view-switch [aria-pressed="true"] { border-color: transparent; border-bottom: 2px solid var(--accent); background: transparent; }
+.cohort-ledger .ledger { grid-template-columns: minmax(0, 2.25fr) minmax(0, 1fr); }
+.cohort-ledger .ledger #analysis { border-top: 3px solid var(--ink); }
+.cohort-ledger #metrics { border-width: 1px 0; }
+.cohort-ledger .metric-grid { grid-template-columns: 1fr; }
+.cohort-ledger .metric { grid-template-columns: minmax(0,1fr) auto; min-height: 0; align-items: center; background: transparent; border-inline-start: 0; border-top: 1px solid var(--line); }
+.cohort-ledger .metric:first-child { border-top: 0; }
+.cohort-ledger .metric strong { grid-column: 2; grid-row: 1 / 3; font-size: 31px; font-weight: 500; }
+.cohort-ledger .metric-link { display: none; }
+.stage-statement button { grid-template-columns: minmax(72px,1fr) minmax(32px,auto) minmax(92px,1fr); gap: 10px; }
+.stage-statement button > span { font: 600 clamp(14px,2vw,23px)/1.25 var(--display); }
+.stage-statement button > strong { font: 500 clamp(20px,3vw,33px)/1.2 var(--display); text-align: right; }
+.stage-statement button > small { justify-self: end; text-align: right; font-size: 11px; }
+.stage-statement li:last-child { background: var(--wash); }
+.stage-statement li:last-child button { padding-inline: 8px; }
+
+/* Territory Atlas — a dark regional workbench with ranked pressure strips. */
+.territory-atlas {
+  color-scheme: dark; --bg: #15202a; --paper: #1e2b36; --ink: #f0f4f6; --muted: #bbcad3;
+  --line: #485966; --wash: #2a3b48; --accent: #93d0d9; --accent2: #abb8e2; --critical: #ffc1c7;
+  --warning: #ffe0aa; --critical-bg: #54323c; --warning-bg: #54452b; --radius: 3px; --gap: 14px;
+  --display: "Bahnschrift", "Segoe UI", sans-serif;
+}
+.territory-atlas .mast { justify-content: start; }
+.territory-atlas .mast .view-switch { margin-inline-start: auto; }
+.territory-atlas .atlas { grid-template-columns: minmax(0,2fr) minmax(0,1fr); }
+.territory-atlas .atlas #analysis { padding: clamp(13px, 2vw, 25px); }
+.territory-atlas .territories button { min-height: 40px; grid-template-columns: minmax(83px,1fr) minmax(24px,2.5fr) 22px; }
+.territory-atlas .territory-track { height: 12px; gap: 1px; }
+.territory-atlas .territories strong { justify-self: end; }
+.territory-atlas .metric-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.territory-atlas .metric:nth-child(3) { border-inline-start: 0; }
+.territory-atlas .metric:nth-child(n+3) { border-top: 1px solid var(--line); }
+.territory-atlas .metric strong { color: var(--accent); }
+
+/* Verification Desk — a document review workspace, with an evidence aging rail. */
+.verification-desk {
+  --bg: #f1eeed; --paper: #fffdfc; --ink: #332827; --muted: #665452; --line: #d4c6c2; --wash: #f0e7e3;
+  --accent: #85392b; --accent2: #80746f; --radius: 2px; --gap: 16px;
+  --display: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+.verification-desk .mast { border-bottom: 2px solid #633229; }
+.verification-desk .review-header { padding: var(--pad); background: #e9ded8; border-bottom: 2px solid #633229; display: grid; gap: 14px; }
+.verification-desk .review-header h1 { font-weight: 700; }
+.verification-desk #metrics { border-width: 1px 0 0; }
+.verification-desk .metric { background: transparent; min-height: 78px; }
+.verification-desk .metric:not(:first-child) { border-inline-start-color: #c9b7ae; }
+.verification-desk .metric:first-child strong { color: var(--accent); }
+.verification-desk .review-work { grid-template-columns: minmax(0,2.4fr) minmax(0,1fr); }
+.verification-desk #queue .queue-table tbody td:last-child { width: 76px; }
+.verification-desk #queue .queue-table { min-width: 625px; }
+.verification-desk #attention { background: #f7f1ec; border-top: 3px solid #987167; }
+.verification-desk #attention .attention-list button { min-height: 48px; }
+
+/* Shift Huddle — work opens with a briefing and reads like a team agenda. */
+.shift-huddle {
+  --bg: #edf2f1; --paper: #fcfefd; --ink: #1d363e; --muted: #48616b; --line: #bacccf; --wash: #e4efef;
+  --accent: #165962; --accent2: #637889; --radius: 9px; --gap: 16px; --display: "Cambria", Georgia, serif;
+}
+.shift-huddle .mast { min-height: 55px; }
+.shift-huddle h1 { font-weight: 600; color: #23414a; }
+.shift-huddle h2 { font-size: 21px; }
+.shift-huddle .view-switch [aria-pressed="true"] { background: #d5e8e9; border-radius: 5px; }
+.shift-huddle #attention { background: #dfecee; border-color: #a9c3c7; }
+.brief-actions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+.brief-actions button { display: grid; gap: 4px; width: 100%; height: 100%; min-height: 85px; text-align: left; background: var(--paper); border: 1px solid var(--line); border-radius: 5px; padding: 8px 10px; }
+.brief-actions small { font-size: 11px; }
+.shift-huddle .workbar { border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.shift-huddle .huddle { grid-template-columns: minmax(0,1.85fr) minmax(0,1fr); }
+.shift-huddle .huddle #metrics { border-width: 0; }
+.shift-huddle .metric-grid { grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.shift-huddle .metric { grid-template-columns: 1fr auto; min-height: 58px; align-items: center; border: 0; }
+.shift-huddle .metric strong { grid-column: 2; grid-row: 1 / 3; font-size: 24px; }
+.shift-huddle .metric-link { display: none; }
+.task-group h3 { color: var(--accent); margin-top: 10px; }
+.task-group li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-block: 8px; border-bottom: 1px solid var(--line); }
+.task-group li strong { display: block; margin-top: 2px; }
+.task-group li p, .task-group li small { font-size: 11px; color: var(--muted); }
+
+@media (max-width: 900px) {
+  .intake-exchange .exchange, .cohort-ledger .ledger, .territory-atlas .atlas, .verification-desk .review-work, .shift-huddle .huddle { grid-template-columns: minmax(0,1fr); }
+  .intake-exchange #mix { order: 2; }
+  .handoff-board .station { grid-template-columns: minmax(0,1fr); }
+  .handoff-board .sidebar { position: static; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; min-height: 0; gap: 8px 14px; padding: 10px 14px; }
+  .handoff-board .view-switch { display: flex; width: auto; }
+  .handoff-board .anchors { display: flex; flex-wrap: wrap; padding: 0; }
+  .handoff-board .sidebar .demo-label { margin-right: 0; }
+}
+@media (max-width: 580px) {
+  .intake-exchange .metric-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .brief-actions, .lanes { grid-template-columns: minmax(0,1fr); }
+  .brief-actions button { min-height: 0; }
+  .territory-atlas .mast .view-switch { margin-inline-start: 0; }
+  .handoff-board .sidebar { justify-content: start; }
+  .cohort-ledger .stage-statement button { gap: 5px; }
+}

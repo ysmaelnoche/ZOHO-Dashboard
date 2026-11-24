@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard design gallery | TVS Philippines</title>
+  <link rel="stylesheet" href="./gallery.css">
+  <script defer src="./gallery.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand">TVS <span>PHILIPPINES</span></div><span class="demo">DEMO DATA</span>
+    <h1>CRM dashboard<br>design gallery</h1>
+    <p>Six approaches to running Philippine sales operations. Each offers Daily Operations and Executive Overview, backed by the same synthetic lead records.</p>
+    <div class="header-links"><a href="#comparison">Compare two concepts</a><a href="./DESIGN_COMPARISON.md">Read the design assessment</a></div>
+  </header>
+  <div class="gallery" aria-label="Dashboard concepts">
+    <article>
+      <a class="image" href="./concept-01.html" aria-label="Preview Intake Exchange"><img src="./screenshots/concept-01.png" alt="Intake Exchange dashboard layout" width="1440" height="1000"></a>
+      <div class="card"><h2>Intake Exchange</h2><p class="philosophy">See what entered the pipeline</p><p>Channel-first intake board, side-by-side arrival and contact, and a quality queue.</p><dl><div><dt>Density</dt><dd>Moderate</dd></div><div><dt>Best for</dt><dd>CRM teams reviewing acquisition and intake quality</dd></div></dl><a class="open" href="./concept-01.html">Open Intake Exchange<span aria-hidden="true"> ↗</span></a></div>
+    </article>
+    <article>
+      <a class="image" href="./concept-02.html" aria-label="Preview Handoff Board"><img src="./screenshots/concept-02.png" alt="Handoff Board dashboard layout" width="1440" height="1000"></a>
+      <div class="card"><h2>Handoff Board</h2><p class="philosophy">Move work between responsible teams</p><p>Stage lanes, ownership states, and a queue grouped by desk.</p><dl><div><dt>Density</dt><dd>High</dd></div><div><dt>Best for</dt><dd>Coordinators handing work to dealers and verification</dd></div></dl><a class="open" href="./concept-02.html">Open Handoff Board<span aria-hidden="true"> ↗</span></a></div>
+    </article>
+    <article>
+      <a class="image" href="./concept-03.html" aria-label="Preview Cohort Ledger"><img src="./screenshots/concept-03.png" alt="Cohort Ledger dashboard layout" width="1440" height="1000"></a>
+      <div class="card"><h2>Cohort Ledger</h2><p class="philosophy">Account for every stage of the funnel</p><p>Audit-style funnel statement, matched denominators, and a sortable exception register.</p><dl><div><dt>Density</dt><dd>High</dd></div><div><dt>Best for</dt><dd>Analysts and managers explaining funnel leakage</dd></div></dl><a class="open" href="./concept-03.html">Open Cohort Ledger<span aria-hidden="true"> ↗</span></a></div>
+    </article>
+    <article>
+      <a class="image" href="./concept-04.html" aria-label="Preview Territory Atlas"><img src="./screenshots/concept-04.png" alt="Territory Atlas dashboard layout" width="1440" height="1000"></a>
+      <div class="card"><h2>Territory Atlas</h2><p class="philosophy">Find where execution needs support</p><p>Ranked territory strips, a dealer execution table, and territory-aware queue filtering.</p><dl><div><dt>Density</dt><dd>Moderate</dd></div><div><dt>Best for</dt><dd>Field managers allocating dealer support</dd></div></dl><a class="open" href="./concept-04.html">Open Territory Atlas<span aria-hidden="true"> ↗</span></a></div>
+    </article>
+    <article>
+      <a class="image" href="./concept-05.html" aria-label="Preview Verification Desk"><img src="./screenshots/concept-05.png" alt="Verification Desk dashboard layout" width="1440" height="1000"></a>
+      <div class="card"><h2>Verification Desk</h2><p class="philosophy">Bring evidence and aging into the decision</p><p>Pending-evidence breakdown, aging bands, and an evidence-first review queue.</p><dl><div><dt>Density</dt><dd>Moderate</dd></div><div><dt>Best for</dt><dd>Verification teams and sales leadership</dd></div></dl><a class="open" href="./concept-05.html">Open Verification Desk<span aria-hidden="true"> ↗</span></a></div>
+    </article>
+    <article>
+      <a class="image" href="./concept-06.html" aria-label="Preview Shift Huddle"><img src="./screenshots/concept-06.png" alt="Shift Huddle dashboard layout" width="1440" height="1000"></a>
+      <div class="card"><h2>Shift Huddle</h2><p class="philosophy">Agree on the next actions together</p><p>Priorities and owners first, followed by lead flow and compact weekly outcomes.</p><dl><div><dt>Density</dt><dd>Low</dd></div><div><dt>Best for</dt><dd>Shift handovers and daily team meetings</dd></div></dl><a class="open" href="./concept-06.html">Open Shift Huddle<span aria-hidden="true"> ↗</span></a></div>
+    </article>
+  </div>
+  <section id="comparison" aria-labelledby="comparison-title">
+    <h2 id="comparison-title">Compare two concepts</h2>
+    <p>Open two interactive previews at the same width. Each panel has independent filters.</p>
+    <form id="compare-form">
+      <label>First concept<select id="left-choice">
+        <option value="concept-01.html">Intake Exchange</option>
+        <option value="concept-02.html">Handoff Board</option>
+        <option value="concept-03.html">Cohort Ledger</option>
+        <option value="concept-04.html">Territory Atlas</option>
+        <option value="concept-05.html">Verification Desk</option>
+        <option value="concept-06.html">Shift Huddle</option>
+      </select></label>
+      <label>Second concept<select id="right-choice">
+        <option value="concept-01.html">Intake Exchange</option>
+        <option value="concept-02.html">Handoff Board</option>
+        <option value="concept-03.html" selected>Cohort Ledger</option>
+        <option value="concept-04.html">Territory Atlas</option>
+        <option value="concept-05.html">Verification Desk</option>
+        <option value="concept-06.html">Shift Huddle</option>
+      </select></label>
+      <button type="submit">Load comparison</button>
+    </form>
+    <p id="compare-status" role="status"></p>
+    <div id="compare-panes" class="compare-panes" hidden></div>
+    <noscript><p>Enable JavaScript to compare interactive previews.</p></noscript>
+  </section>
+</main>
+</body>
+</html>
