@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TVS PH | Daily Operations</title>
+  <link rel="stylesheet" href="./styles/dashboard.css">
+  <script type="module" src="./js/main.js"></script>
+</head>
+<body>
+  <main class="dashboard">
+    <header class="dashboard-header">
+      <div>
+        <p class="brand">TVS PH <span> / </span> Central CRM</p>
+        <h1>Daily Operations</h1>
+      </div>
+      <div class="controls">
+        <div><small>Reporting period</small><strong id="period">—</strong></div>
+        <div><small>Last updated</small><strong id="updated">—</strong></div>
+        <button id="refresh" disabled>Refresh</button>
+      </div>
+    </header>
+
+    <div class="environment" id="environment">Checking dashboard mode…</div>
+    <p id="message" role="status">Loading dashboard…</p>
+
+    <div id="content" hidden>
+      <section class="overview" aria-labelledby="overview-title">
+        <h2 id="overview-title">Overview</h2>
+        <dl id="metrics" class="metrics"></dl>
+      </section>
+
+      <section class="panel" aria-labelledby="queue-title">
+        <header class="panel-heading">
+          <h2 id="queue-title">Priority operational queue</h2>
+          <span id="queue-count" class="muted"></span>
+        </header>
+        <p id="queue-empty" class="empty" hidden>No priority issues in this view.</p>
+        <div id="queue-scroll" class="table-scroll" tabindex="0" role="region" aria-labelledby="queue-title">
+          <table>
+            <thead><tr><th scope="col">Priority</th><th scope="col">Record / Issue</th><th scope="col">Assigned owner</th><th scope="col">Deadline</th><th scope="col">Status</th><th scope="col">Action</th></tr></thead>
+            <tbody id="queue"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="secondary">
+        <section class="panel" aria-labelledby="activity-title">
+          <header class="panel-heading"><h2 id="activity-title">Lead activity</h2><span class="muted">Intake by day</span></header>
+          <ul id="activity" class="summary-list"></ul>
+        </section>
+        <section class="panel" aria-labelledby="exceptions-title">
+          <header class="panel-heading"><h2 id="exceptions-title">Operational exceptions</h2></header>
+          <ul id="exceptions" class="summary-list"></ul>
+          <p class="integration"><strong>Integration status</strong> · CRM data access disabled</p>
+        </section>
+      </div>
+    </div>
+
+    <dialog id="review" aria-labelledby="review-title">
+      <h2 id="review-title">Review issue</h2>
+      <p id="review-body"></p>
+      <form method="dialog"><button>Close</button></form>
+    </dialog>
+  </main>
+</body>
+</html>
