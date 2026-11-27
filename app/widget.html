@@ -3,65 +3,175 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TVS PH | Daily Operations</title>
+  <title>TVS PH | CRM handoff board</title>
   <link rel="stylesheet" href="./styles/dashboard.css">
+  <link rel="stylesheet" href="./styles/executive.css">
+  <script defer src="./assets/chart.js"></script>
   <script type="module" src="./js/main.js"></script>
 </head>
-<body>
-  <main class="dashboard">
-    <header class="dashboard-header">
-      <div>
-        <p class="brand">TVS PH <span> / </span> Central CRM</p>
-        <h1>Daily Operations</h1>
-      </div>
-      <div class="controls">
-        <div><small>Reporting period</small><strong id="period">—</strong></div>
-        <div><small>Last updated</small><strong id="updated">—</strong></div>
-        <button id="refresh" disabled>Refresh</button>
-      </div>
-    </header>
+<body class="handoff-board">
+  <a class="skip" href="#main">Skip to report</a>
+  <div class="station" id="overview" tabindex="-1">
+    <aside class="sidebar">
+      <p class="sidebar-title" id="workspace-title">Daily Operations</p>
+      <!-- widget:both -->
+      <nav class="view-navigation" aria-label="Dashboard views">
+        <a href="#executive" id="switch-view">Executive Overview</a>
+      </nav>
+      <!-- /widget:both -->
+      <!-- widget:daily -->
+      <nav class="anchors" id="daily-navigation" aria-label="Workspace sections">
+        <a href="#overview" aria-current="location">Overview</a>
+        <a href="#queue">Work queue</a>
+        <a href="#attention">Issues to check</a>
+        <a href="#analysis">Dealer follow-up</a>
+      </nav>
+      <!-- /widget:daily -->
+      <!-- widget:executive -->
+      <nav class="anchors" id="executive-navigation" aria-label="Executive sections" hidden>
+        <a href="#executive">Overview</a>
+        <a href="#exec-dealers">Dealer performance</a>
+        <a href="#exec-stages">Current stages</a>
+        <a href="#exec-activity">Activity over time</a>
+      </nav>
+      <!-- /widget:executive -->
+      <div class="sidebar-status"><span id="environment" class="demo-label" hidden></span></div>
+    </aside>
 
-    <div class="environment" id="environment">Checking dashboard mode…</div>
-    <p id="message" role="status">Loading dashboard…</p>
-
-    <div id="content" hidden>
-      <section class="overview" aria-labelledby="overview-title">
-        <h2 id="overview-title">Overview</h2>
-        <dl id="metrics" class="metrics"></dl>
-      </section>
-
-      <section class="panel" aria-labelledby="queue-title">
-        <header class="panel-heading">
-          <h2 id="queue-title">Priority operational queue</h2>
-          <span id="queue-count" class="muted"></span>
-        </header>
-        <p id="queue-empty" class="empty" hidden>No priority issues in this view.</p>
-        <div id="queue-scroll" class="table-scroll" tabindex="0" role="region" aria-labelledby="queue-title">
-          <table>
-            <thead><tr><th scope="col">Priority</th><th scope="col">Record / Issue</th><th scope="col">Assigned owner</th><th scope="col">Deadline</th><th scope="col">Status</th><th scope="col">Action</th></tr></thead>
-            <tbody id="queue"></tbody>
-          </table>
+    <main id="main" class="layout">
+      <header class="intro">
+        <div class="headline"><h1 id="dashboard-title" tabindex="-1">CRM handoff board</h1><p>PH - Central CRM Leads <span>Manila time</span></p></div>
+        <div class="report-toolbar">
+          <form id="filters" class="filters" aria-label="Report filters">
+            <label><span id="period-label">New leads from</span><select id="period"><option value="7">Last 7 days</option><option value="1">Today</option><option value="30">Last 30 days</option></select></label>
+            <label>Lead source<select id="source" disabled><option value="">All sources</option></select></label>
+            <button class="quiet" type="button" id="refresh">Refresh</button>
+          </form>
+          <div class="read-status">
+            <p id="message" role="status">Loading dashboard…</p>
+            <p id="updated" hidden></p>
+            <progress id="read-progress" aria-label="Loading dashboard" hidden></progress>
+            <button class="quiet" type="button" id="retry" hidden>Retry</button>
+            <details id="read-error" hidden><summary>Error details</summary><p id="error-message"></p></details>
+          </div>
         </div>
-      </section>
-
-      <div class="secondary">
-        <section class="panel" aria-labelledby="activity-title">
-          <header class="panel-heading"><h2 id="activity-title">Lead activity</h2><span class="muted">Intake by day</span></header>
-          <ul id="activity" class="summary-list"></ul>
-        </section>
-        <section class="panel" aria-labelledby="exceptions-title">
-          <header class="panel-heading"><h2 id="exceptions-title">Operational exceptions</h2></header>
-          <ul id="exceptions" class="summary-list"></ul>
-          <p class="integration"><strong>Integration status</strong> · CRM data access disabled</p>
-        </section>
+      </header>
+      <div class="loading-skeleton" id="loading-skeleton" aria-hidden="true" hidden>
+        <!-- widget:daily -->
+        <div class="skeleton-view" id="daily-skeleton">
+          <div class="metric-grid skeleton-metrics">
+            <div class="skeleton-surface skeleton-stat"><span></span></div>
+            <div class="skeleton-surface skeleton-stat"><span></span></div>
+            <div class="skeleton-surface skeleton-stat"><span></span></div>
+            <div class="skeleton-surface skeleton-stat"><span></span></div>
+          </div>
+          <div class="skeleton-surface skeleton-queue">
+            <span class="skeleton-heading"></span>
+            <span class="skeleton-toolbar"></span>
+            <div class="lanes">
+              <div class="skeleton-lane"><span></span><i></i><i></i></div>
+              <div class="skeleton-lane"><span></span><i></i><i></i></div>
+              <div class="skeleton-lane"><span></span><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+        <!-- /widget:daily -->
+        <!-- widget:executive -->
+        <div class="skeleton-view" id="executive-skeleton" hidden>
+          <div class="executive-hero">
+            <div class="skeleton-surface">
+              <span class="skeleton-heading"></span>
+              <div class="skeleton-scorecard">
+                <div class="skeleton-stat"><span></span></div>
+                <div class="skeleton-stat"><span></span></div>
+                <div class="skeleton-stat"><span></span></div>
+                <div class="skeleton-stat"><span></span></div>
+              </div>
+            </div>
+            <div class="skeleton-surface skeleton-chart">
+              <span class="skeleton-heading"></span><span class="skeleton-toolbar"></span><div></div>
+            </div>
+          </div>
+          <div class="skeleton-surface skeleton-table">
+            <span class="skeleton-heading"></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <!-- /widget:executive -->
       </div>
-    </div>
+      <!-- widget:daily -->
+      <div id="content" hidden>
+        <section id="metrics" aria-label="Key metrics"></section>
+        <section id="queue" aria-label="Work queue" tabindex="-1">
+          <header class="section-head"><h2>Work queue</h2><p>Leads needing action or review, across all dates.</p></header>
+          <div class="queue-tools">
+            <label class="queue-search">Find a lead<input type="search" id="lead-search" placeholder="Search by name" autocomplete="off"></label>
+            <label>Issue type<select id="issue"></select></label>
+            <label>Sort by<select id="task-sort"><option value="priority">Priority</option><option value="deadline">Due date</option><option value="owner">Assigned to</option></select></label>
+            <button type="button" class="quiet" id="critical-only" aria-pressed="false">Critical only</button>
+            <p id="match-count" role="status"></p>
+          </div>
+          <div class="queue-scope" id="queue-scope" hidden><span>Reason <strong id="queue-reason"></strong></span><button class="quiet" type="button" id="clear-reason">Clear reason</button></div>
+          <div class="lanes" id="lanes"></div>
+        </section>
+        <div class="report-grid">
+          <section id="analysis" aria-label="Dealer follow-up" tabindex="-1"></section>
+          <section id="attention" aria-label="Issues to check" tabindex="-1"></section>
+          <section id="attention-triage" aria-label="Why leads need attention"></section>
+          <section id="trend" class="activity-panel" aria-label="New leads and first dealer updates">
+            <div id="daily-trend-heading"></div>
+            <div id="daily-chart"></div>
+            <div id="daily-trend-table"></div>
+          </section>
+        </div>
+      </div>
+      <!-- /widget:daily -->
 
-    <dialog id="review" aria-labelledby="review-title">
-      <h2 id="review-title">Review issue</h2>
-      <p id="review-body"></p>
-      <form method="dialog"><button>Close</button></form>
-    </dialog>
-  </main>
+      <!-- widget:executive -->
+      <div id="executive-content" hidden>
+        <div class="executive-hero">
+          <section id="exec-scorecard" aria-label="Management scorecard"></section>
+          <section id="exec-activity" class="activity-panel" aria-label="Activity over time" tabindex="-1">
+            <div id="exec-trend-heading"></div>
+            <div id="exec-chart"></div>
+            <div id="exec-trend-table"></div>
+          </section>
+        </div>
+        <section id="exec-dealers" aria-label="Dealer performance" tabindex="-1">
+          <div class="executive-toolbar">
+            <header class="section-head"><h2>Dealer performance</h2><p>Grouped by the assigned dealer contact in CRM.</p></header>
+            <label>Lead dates<select id="exec-dealer-scope">
+              <option value="all">All dates</option><option value="period">Created in reporting period</option>
+            </select></label>
+          </div>
+          <div id="exec-assignments" class="dealer-assignment" role="region" aria-labelledby="assignment-title" hidden>
+            <header class="section-head">
+              <h3 id="assignment-title">Assigned leads by dealer contact</h3>
+              <p>Share of leads currently assigned in this selection.</p>
+            </header>
+            <div class="assignment-breakdown">
+              <div class="assignment-ring">
+                <canvas aria-hidden="true"></canvas>
+                <div class="assignment-total"><strong id="assignment-total"></strong><span>Assigned leads</span></div>
+              </div>
+              <ul id="assignment-legend" class="assignment-legend" aria-label="Assignment counts and shares"></ul>
+            </div>
+          </div>
+          <div id="exec-dealer-results"></div>
+        </section>
+        <div class="executive-columns">
+          <section id="exec-stages" aria-label="Current lead stages" tabindex="-1"></section>
+          <section id="exec-sources" aria-label="New leads by source"></section>
+        </div>
+      </div>
+      <!-- /widget:executive -->
+
+      <!-- widget:daily -->
+      <dialog id="detail" aria-labelledby="detail-title">
+        <div class="dialog-top"><h2 id="detail-title"></h2><form method="dialog"><button>Close</button></form></div>
+        <div id="detail-body"></div>
+      </dialog>
+      <!-- /widget:daily -->
+    </main>
+  </div>
 </body>
 </html>

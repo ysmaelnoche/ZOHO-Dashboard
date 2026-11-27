@@ -1,51 +1,32 @@
-import type { DashboardAdapter, QueueIssue } from './dashboard.js';
+import type { DashboardAdapter, Lead } from './dashboard.js';
+import { liveSettings } from '../live-settings.js';
 
-const queue: readonly QueueIssue[] = [
-  {
-    id: 'PH-DEMO-101', kind: 'follow-up', priority: 'Critical',
-    issue: 'First contact overdue', owner: 'Demo · Central CRM',
-    deadline: '2025-07-18T09:00:00+08:00', status: 'SLA breached',
-    nextAction: 'Confirm contact attempt and record the outcome.',
-  },
-  {
-    id: 'PH-DEMO-102', kind: 'follow-up', priority: 'High',
-    issue: 'Dealer follow-up overdue', owner: 'Demo · Dealer desk',
-    deadline: '2025-07-18T10:30:00+08:00', status: 'Overdue',
-    nextAction: 'Request a follow-up update from the assigned dealer.',
-  },
-  {
-    id: 'PH-DEMO-103', kind: 'assignment', priority: 'High',
-    issue: 'Dealer assignment missing', owner: 'Unassigned',
-    deadline: '2025-07-18T13:00:00+08:00', status: 'Awaiting assignment',
-    nextAction: 'Check territory and assign an eligible dealer.',
-  },
-  {
-    id: 'PH-DEMO-104', kind: 'verification', priority: 'Routine',
-    issue: 'Dealer-reported sale', owner: 'Demo · Verification desk',
-    deadline: '2025-07-18T16:00:00+08:00', status: 'Pending verification',
-    nextAction: 'Review the sale evidence and confirm verification eligibility.',
-  },
-];
+const asOf = Date.parse('2025-07-28T11:00:00+08:00');
+const date = (value: string) => Date.parse('2025-07-' + value + '+08:00');
+const desk = { id: 'metro', name: 'Demo Metro desk' };
+const otherDesk = { id: 'visayas', name: 'Demo Visayas desk' };
 
-const activity = [
-  { date: '2025-07-18', leads: 8 },
-  { date: '2025-07-17', leads: 12 },
-  { date: '2025-07-16', leads: 9 },
+function lead(id: number, overrides: Partial<Lead>): Lead {
+  return {
+    id: 'PH-DEMO-' + id, name: 'Sample Lead ' + id, created: date('24T09:00:00'), dealer: desk, workflow: 'With Dealer',
+    stage: 'Opportunity', outcome: null, enabled: true, nextDue: null, firstUpdate: null,
+    firstDue: date('25T10:00:00'), lastFollowUp: null, attention: false, reason: null,
+    source: 'Demo web', ...overrides,
+  };
+}
+
+const leads = [
+  lead(101, { attention: true, reason: 'First Contact Overdue' }),
+  lead(102, { created: date('18T09:00:00'), dealer: null, workflow: 'Central Review', stage: 'Prospect', firstDue: null }),
+  lead(103, { created: date('26T09:00:00'), firstUpdate: date('26T10:00:00'), firstDue: date('27T09:00:00'), outcome: 'Contacted - Interested' }),
+  lead(104, { dealer: otherDesk, created: date('25T10:00:00'), firstUpdate: date('25T11:00:00'), nextDue: date('28T15:00:00'), outcome: 'Contacted - Follow-up Needed', source: 'Demo form' }),
+  lead(105, { outcome: 'Sale Reported', attention: true, reason: 'Sale Verification', firstUpdate: date('24T14:00:00'), nextDue: date('29T16:00:00') }),
+  lead(106, { dealer: otherDesk, outcome: 'Sale Reported', attention: true, reason: 'Sale Verification', firstUpdate: date('24T12:00:00') }),
+  lead(107, { dealer: otherDesk, firstUpdate: date('26T12:00:00'), nextDue: date('27T16:00:00'), lastFollowUp: date('27T08:00:00'), outcome: 'Contacted - Interested' }),
+  lead(108, { created: date('28T08:30:00'), dealer: null, workflow: 'New', firstDue: null, stage: null, source: 'Demo form' }),
+  lead(109, { workflow: 'Closed', firstUpdate: date('25T08:00:00'), stage: 'Not Sold', outcome: 'Not Interested' }),
 ];
 
 export const mockAdapter: DashboardAdapter = {
-  async load() {
-    return {
-      period: 'Jul 16–18, 2025 · PHT',
-      updatedAt: new Date().toISOString(),
-      metrics: {
-        newLeads: activity.reduce((total, day) => total + day.leads, 0),
-        unassigned: queue.filter(row => row.kind === 'assignment').length,
-        overdue: queue.filter(row => row.kind === 'follow-up').length,
-        pendingVerification: queue.filter(row => row.kind === 'verification').length,
-      },
-      queue,
-      activity,
-    };
-  },
+  async load() { return { leads, policy: liveSettings.policy, asOf }; },
 };

@@ -4,9 +4,10 @@ const { resolve } = require('node:path');
 
 const command = process.argv[2];
 if (!['run', 'validate', 'pack'].includes(command)) throw new Error('Unsupported local ZET command');
-const state = resolve('.zet-state');
+const state = resolve(__dirname, '..', '.zet-state');
 mkdirSync(state, { recursive: true });
 const result = spawnSync(process.execPath, [require.resolve('zoho-extension-toolkit'), command], {
+  cwd: process.argv[3],
   stdio: 'inherit',
   env: { ...process.env, APPDATA: state, XDG_CONFIG_HOME: state, XDG_DATA_HOME: state, NO_UPDATE_NOTIFIER: '1' },
 });
